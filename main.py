@@ -63,7 +63,7 @@ def run():
 
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-
+        width, height, _ = image.shape
 
         #result 후처리 과정
         if results.multi_hand_landmarks:
@@ -119,7 +119,15 @@ def run():
                 # get_angle(hand_landmarks.landmark[mp_fingers.INDEX_FINGER_PIP],
                 #           hand_landmarks.landmark[mp_fingers.INDEX_FINGER_DIP],
                 #           hand_landmarks.landmark[mp_fingers.INDEX_FINGER_MCP])
-
+                cv2.putText(
+                    image,
+                    text=f'{str(int(index_finger_tip.x * width))},{str(int(index_finger_tip.y * height))}',
+                    org=(100,100),
+                    fontFace =cv2.FONT_HERSHEY_SIMPLEX,
+                    fontScale=1,
+                    color=(255,255,255),
+                    thickness=2
+                )
                 mp_drawing.draw_landmarks(
                     image,
                     #각 손의 정보
